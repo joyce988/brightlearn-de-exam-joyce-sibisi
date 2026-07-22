@@ -1,0 +1,2139 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/15/2026 4:27:08 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="JOYCESIBISI"
+  DTS:CreatorName="JOYCESIBISI\sibis"
+  DTS:DTSID="{8FD3D7F1-CC7F-49C5-8F00-3396BC6B6DA9}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="7177"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="11"
+  DTS:VersionGUID="{5A61119C-E609-41CA-B510-F193FF65A4BC}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\clean_fact_to_dwh_fact"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{DD9A6F3D-05EF-4C02-B860-B7353C3FF77C}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="clean_fact_to_dwh_fact"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\clean_fact_to_dwh_fact\clean_fact"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="clean_fact"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[clean_fact_sales]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
+    storeID ,
+	productID,
+	customerID,
+	supplierID,
+	paymentID,
+	dateID,
+	transaction_amount,
+	transaction_discount,
+	unit_price,
+	cost_price,
+	qty,
+	line_amount,
+	stock_on_hand,
+	reorder_threshold
+    
+FROM [stg_brightlearn_store].[dbo].[clean_fact_sales]</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\clean_fact_to_dwh_fact\clean_fact.Connections[OleDbConnection]"
+                  connectionManagerID="{EE0DECC5-AD73-4505-87B4-309AF15DA89D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JOYCESIBISI.stg_brightlearn_store]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[transaction_amount]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[transaction_amount]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[transaction_amount]"
+                      name="transaction_amount"
+                      precision="18"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[transaction_discount]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[transaction_discount]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[transaction_discount]"
+                      name="transaction_discount"
+                      precision="18"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[unit_price]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[unit_price]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[unit_price]"
+                      name="unit_price"
+                      precision="18"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[cost_price]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[cost_price]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[cost_price]"
+                      name="cost_price"
+                      precision="18"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[qty]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[qty]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[qty]"
+                      name="qty"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[line_amount]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[line_amount]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[line_amount]"
+                      name="line_amount"
+                      precision="18"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[stock_on_hand]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[stock_on_hand]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[stock_on_hand]"
+                      name="stock_on_hand"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[reorder_threshold]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[reorder_threshold]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[reorder_threshold]"
+                      name="reorder_threshold"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[storeID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[storeID]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[storeID]"
+                      name="storeID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[productID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[productID]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[productID]"
+                      name="productID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[customerID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[customerID]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[customerID]"
+                      name="customerID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[supplierID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[supplierID]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[supplierID]"
+                      name="supplierID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[paymentID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[paymentID]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[paymentID]"
+                      name="paymentID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[dateID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[dateID]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[dateID]"
+                      name="dateID"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[transaction_amount]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="transaction_amount" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[transaction_discount]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="transaction_discount" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[unit_price]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="unit_price" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[cost_price]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="cost_price" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[qty]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="qty" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[line_amount]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="line_amount" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[stock_on_hand]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="stock_on_hand" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[reorder_threshold]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="reorder_threshold" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[storeID]"
+                      dataType="i4"
+                      name="storeID" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[productID]"
+                      dataType="i4"
+                      name="productID" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[customerID]"
+                      dataType="i4"
+                      name="customerID" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[supplierID]"
+                      dataType="i4"
+                      name="supplierID" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[paymentID]"
+                      dataType="i4"
+                      name="paymentID" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].ExternalColumns[dateID]"
+                      dataType="i4"
+                      name="dateID" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[storeID]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[storeID]"
+                      name="storeID" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[productID]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[productID]"
+                      name="productID" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[customerID]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[customerID]"
+                      name="customerID" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[supplierID]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[supplierID]"
+                      name="supplierID" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[paymentID]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[paymentID]"
+                      name="paymentID" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[dateID]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[dateID]"
+                      name="dateID" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[transaction_amount]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[transaction_amount]"
+                      name="transaction_amount" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[transaction_discount]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[transaction_discount]"
+                      name="transaction_discount" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[unit_price]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[unit_price]"
+                      name="unit_price" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[cost_price]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[cost_price]"
+                      name="cost_price" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[qty]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[qty]"
+                      name="qty" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[line_amount]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[line_amount]"
+                      name="line_amount" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[stock_on_hand]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[stock_on_hand]"
+                      name="stock_on_hand" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[reorder_threshold]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[reorder_threshold]"
+                      name="reorder_threshold" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="dwh_fact_sales"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dwh_fact_sales]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Connections[OleDbConnection]"
+                  connectionManagerID="{E5EE915D-1739-4445-8D97-1C9CD147DB36}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JOYCESIBISI.dwh_brightlearn_store]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].Columns[transaction_amount]"
+                      cachedDataType="numeric"
+                      cachedName="transaction_amount"
+                      cachedPrecision="18"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[transaction_amount]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[transaction_amount]" />
+                    <inputColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].Columns[transaction_discount]"
+                      cachedDataType="numeric"
+                      cachedName="transaction_discount"
+                      cachedPrecision="18"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[transaction_discount]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[transaction_discount]" />
+                    <inputColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].Columns[unit_price]"
+                      cachedDataType="numeric"
+                      cachedName="unit_price"
+                      cachedPrecision="18"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[unit_price]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[unit_price]" />
+                    <inputColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].Columns[cost_price]"
+                      cachedDataType="numeric"
+                      cachedName="cost_price"
+                      cachedPrecision="18"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[cost_price]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[cost_price]" />
+                    <inputColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].Columns[qty]"
+                      cachedDataType="i4"
+                      cachedName="qty"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[qty]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[qty]" />
+                    <inputColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].Columns[line_amount]"
+                      cachedDataType="numeric"
+                      cachedName="line_amount"
+                      cachedPrecision="18"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[line_amount]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[line_amount]" />
+                    <inputColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].Columns[stock_on_hand]"
+                      cachedDataType="i4"
+                      cachedName="stock_on_hand"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[stock_on_hand]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[stock_on_hand]" />
+                    <inputColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].Columns[reorder_threshold]"
+                      cachedDataType="i4"
+                      cachedName="reorder_threshold"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[reorder_threshold]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[reorder_threshold]" />
+                    <inputColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].Columns[storeID]"
+                      cachedDataType="i4"
+                      cachedName="storeID"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[storeID]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[storeID]" />
+                    <inputColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].Columns[productID]"
+                      cachedDataType="i4"
+                      cachedName="productID"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[productID]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[productID]" />
+                    <inputColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].Columns[customerID]"
+                      cachedDataType="i4"
+                      cachedName="customerID"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[customerID]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[customerID]" />
+                    <inputColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].Columns[supplierID]"
+                      cachedDataType="i4"
+                      cachedName="supplierID"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[supplierID]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[supplierID]" />
+                    <inputColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].Columns[paymentID]"
+                      cachedDataType="i4"
+                      cachedName="paymentID"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[paymentID]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[paymentID]" />
+                    <inputColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].Columns[dateID]"
+                      cachedDataType="i4"
+                      cachedName="dateID"
+                      externalMetadataColumnId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[dateID]"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[dateID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[salesID]"
+                      dataType="i4"
+                      name="salesID" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[transaction_amount]"
+                      dataType="numeric"
+                      name="transaction_amount"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[transaction_discount]"
+                      dataType="numeric"
+                      name="transaction_discount"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[unit_price]"
+                      dataType="numeric"
+                      name="unit_price"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[cost_price]"
+                      dataType="numeric"
+                      name="cost_price"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[qty]"
+                      dataType="i4"
+                      name="qty" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[line_amount]"
+                      dataType="numeric"
+                      name="line_amount"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[stock_on_hand]"
+                      dataType="i4"
+                      name="stock_on_hand" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[reorder_threshold]"
+                      dataType="i4"
+                      name="reorder_threshold" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[storeID]"
+                      dataType="i4"
+                      name="storeID" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[productID]"
+                      dataType="i4"
+                      name="productID" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[customerID]"
+                      dataType="i4"
+                      name="customerID" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[supplierID]"
+                      dataType="i4"
+                      name="supplierID" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[paymentID]"
+                      dataType="i4"
+                      name="paymentID" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[dateID]"
+                      dataType="i4"
+                      name="dateID" />
+                    <externalMetadataColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[load_date]"
+                      dataType="dbTimeStamp"
+                      name="load_date" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_customer"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup_dwh_customer"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[dwh_customers]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[dwh_customers]) [refTable]
+where [refTable].[customerID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="customerID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="customer_first_name" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="customer_last_name" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="customer_email" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="customer_phone" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="customer_city" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="customer_province" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="customer_loyalty_tier" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="customer_since" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="load_date" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[customerID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_customer.Connections[OleDbConnection]"
+                  connectionManagerID="{E5EE915D-1739-4445-8D97-1C9CD147DB36}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JOYCESIBISI.dwh_brightlearn_store]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_customer.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_customer.Inputs[Lookup Input].Columns[customerID]"
+                      cachedDataType="i4"
+                      cachedName="customerID"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[customerID]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">customerID</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">customerID</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_customer.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\clean_fact_to_dwh_fact\Lookup_dwh_customer.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_customer.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\clean_fact_to_dwh_fact\Lookup_dwh_customer.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_customer.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\clean_fact_to_dwh_fact\Lookup_dwh_customer.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_customer.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\Lookup_dwh_customer.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_customer.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\Lookup_dwh_customer.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_date"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup_dwh_date"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[dwh_date]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[dwh_date]) [refTable]
+where [refTable].[dateID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="dateID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="transaction_date" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="load_date" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[dateID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_date.Connections[OleDbConnection]"
+                  connectionManagerID="{E5EE915D-1739-4445-8D97-1C9CD147DB36}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JOYCESIBISI.dwh_brightlearn_store]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_date.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_date.Inputs[Lookup Input].Columns[dateID]"
+                      cachedDataType="i4"
+                      cachedName="dateID"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[dateID]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">dateID</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">dateID</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_date.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\clean_fact_to_dwh_fact\Lookup_dwh_date.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_date.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\clean_fact_to_dwh_fact\Lookup_dwh_date.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_date.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\clean_fact_to_dwh_fact\Lookup_dwh_date.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_date.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\Lookup_dwh_date.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_date.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\Lookup_dwh_date.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_payment"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup_dwh_payment"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[dwh_payment]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[dwh_payment]) [refTable]
+where [refTable].[paymentID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="paymentID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="payment_method" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="load_date" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[paymentID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_payment.Connections[OleDbConnection]"
+                  connectionManagerID="{E5EE915D-1739-4445-8D97-1C9CD147DB36}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JOYCESIBISI.dwh_brightlearn_store]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_payment.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_payment.Inputs[Lookup Input].Columns[paymentID]"
+                      cachedDataType="i4"
+                      cachedName="paymentID"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[paymentID]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">paymentID</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">paymentID</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_payment.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\clean_fact_to_dwh_fact\Lookup_dwh_payment.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_payment.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\clean_fact_to_dwh_fact\Lookup_dwh_payment.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_payment.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\clean_fact_to_dwh_fact\Lookup_dwh_payment.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_payment.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\Lookup_dwh_payment.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_payment.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\Lookup_dwh_payment.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_product"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup_dwh_product"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[dwh_product]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[dwh_product]) [refTable]
+where [refTable].[productID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="productID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="product_name" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="category" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="sub_category" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="sku" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="load_date" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[productID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_product.Connections[OleDbConnection]"
+                  connectionManagerID="{E5EE915D-1739-4445-8D97-1C9CD147DB36}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JOYCESIBISI.dwh_brightlearn_store]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_product.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_product.Inputs[Lookup Input].Columns[productID]"
+                      cachedDataType="i4"
+                      cachedName="productID"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[productID]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">productID</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">productID</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_product.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\clean_fact_to_dwh_fact\Lookup_dwh_product.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_product.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\clean_fact_to_dwh_fact\Lookup_dwh_product.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_product.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\clean_fact_to_dwh_fact\Lookup_dwh_product.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_product.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\Lookup_dwh_product.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_product.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\Lookup_dwh_product.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_store"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup_dwh_store"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[dwh_store]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[dwh_store]) [refTable]
+where [refTable].[storeID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="storeID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="cashier_name" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="store_name" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="store_city" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="store_province" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="store_region" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="store_manager" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="load_date" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[storeID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_store.Connections[OleDbConnection]"
+                  connectionManagerID="{E5EE915D-1739-4445-8D97-1C9CD147DB36}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JOYCESIBISI.dwh_brightlearn_store]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_store.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_store.Inputs[Lookup Input].Columns[storeID]"
+                      cachedDataType="i4"
+                      cachedName="storeID"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[storeID]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">storeID</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">storeID</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_store.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\clean_fact_to_dwh_fact\Lookup_dwh_store.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_store.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\clean_fact_to_dwh_fact\Lookup_dwh_store.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_store.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\clean_fact_to_dwh_fact\Lookup_dwh_store.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_store.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\Lookup_dwh_store.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_store.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\Lookup_dwh_store.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_supplier"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup_dwh_supplier"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[dwh_supplier]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[dwh_supplier]) [refTable]
+where [refTable].[supplierID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="supplierID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="supplier" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="load_date" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[supplierID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_supplier.Connections[OleDbConnection]"
+                  connectionManagerID="{E5EE915D-1739-4445-8D97-1C9CD147DB36}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JOYCESIBISI.dwh_brightlearn_store]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_supplier.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_supplier.Inputs[Lookup Input].Columns[supplierID]"
+                      cachedDataType="i4"
+                      cachedName="supplierID"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output].Columns[supplierID]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">supplierID</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">supplierID</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_supplier.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\clean_fact_to_dwh_fact\Lookup_dwh_supplier.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_supplier.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\clean_fact_to_dwh_fact\Lookup_dwh_supplier.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_supplier.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\clean_fact_to_dwh_fact\Lookup_dwh_supplier.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_supplier.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\Lookup_dwh_supplier.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\clean_fact_to_dwh_fact\Lookup_dwh_supplier.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\clean_fact_to_dwh_fact\Lookup_dwh_supplier.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\clean_fact_to_dwh_fact.Paths[Lookup Match Output]"
+              endId="Package\clean_fact_to_dwh_fact\Lookup_dwh_product.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\clean_fact_to_dwh_fact\Lookup_dwh_customer.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\clean_fact_to_dwh_fact.Paths[Lookup Match Output1]"
+              endId="Package\clean_fact_to_dwh_fact\Lookup_dwh_supplier.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\clean_fact_to_dwh_fact\Lookup_dwh_product.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\clean_fact_to_dwh_fact.Paths[Lookup Match Output2]"
+              endId="Package\clean_fact_to_dwh_fact\Lookup_dwh_date.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\clean_fact_to_dwh_fact\Lookup_dwh_supplier.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\clean_fact_to_dwh_fact.Paths[Lookup Match Output3]"
+              endId="Package\clean_fact_to_dwh_fact\Lookup_dwh_store.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\clean_fact_to_dwh_fact\Lookup_dwh_date.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\clean_fact_to_dwh_fact.Paths[Lookup Match Output4]"
+              endId="Package\clean_fact_to_dwh_fact\Lookup_dwh_payment.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\clean_fact_to_dwh_fact\Lookup_dwh_store.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\clean_fact_to_dwh_fact.Paths[Lookup Match Output5]"
+              endId="Package\clean_fact_to_dwh_fact\dwh_fact_sales.Inputs[OLE DB Destination Input]"
+              name="Lookup Match Output"
+              startId="Package\clean_fact_to_dwh_fact\Lookup_dwh_payment.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\clean_fact_to_dwh_fact.Paths[OLE DB Source Output]"
+              endId="Package\clean_fact_to_dwh_fact\Lookup_dwh_customer.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\clean_fact_to_dwh_fact\clean_fact.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\truncate_dwh_fact"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{FB329E98-A3E6-4E13-9DB5-AF100C64CB20}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="truncate_dwh_fact"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E5EE915D-1739-4445-8D97-1C9CD147DB36}"
+          SQLTask:SqlStatementSource="truncate table [dwh_brightlearn_store].[dbo].[dwh_fact_sales];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{71098B83-85FE-43DC-BBAD-7C78D620C114}"
+      DTS:From="Package\truncate_dwh_fact"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\clean_fact_to_dwh_fact" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="187.2,41.6"
+          Id="Package\clean_fact_to_dwh_fact"
+          TopLeft="98.833328233825,139.833332399196" />
+        <NodeLayout
+          Size="163.2,41.6"
+          Id="Package\truncate_dwh_fact"
+          TopLeft="35.5,35.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="117.1,77.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="75.333328233825,62.7333323991961"
+              Start="0,0"
+              End="75.333328233825,55.2333323991961">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.3666661995981" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.3666661995981"
+                    Point2="0,31.3666661995981"
+                    Point3="4,31.3666661995981" />
+                  <mssgle:LineSegment
+                    End="71.333328233825,31.3666661995981" />
+                  <mssgle:CubicBezierSegment
+                    Point1="71.333328233825,31.3666661995981"
+                    Point2="75.333328233825,31.3666661995981"
+                    Point3="75.333328233825,35.3666661995981" />
+                  <mssgle:LineSegment
+                    End="75.333328233825,55.2333323991961" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\clean_fact_to_dwh_fact">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="177.6,41.6"
+          Id="Package\clean_fact_to_dwh_fact\Lookup_dwh_product"
+          TopLeft="149.666660428875,208.833332127995" />
+        <NodeLayout
+          Size="185.6,41.6"
+          Id="Package\clean_fact_to_dwh_fact\Lookup_dwh_customer"
+          TopLeft="93.833328507013,110.366665937437" />
+        <NodeLayout
+          Size="150.4,41.6"
+          Id="Package\clean_fact_to_dwh_fact\dwh_fact_sales"
+          TopLeft="1017.16661303077,373.49999764959" />
+        <NodeLayout
+          Size="125.6,41.6"
+          Id="Package\clean_fact_to_dwh_fact\clean_fact"
+          TopLeft="5.5,5.5" />
+        <EdgeLayout
+          Id="Package\clean_fact_to_dwh_fact.Paths[OLE DB Source Output]"
+          TopLeft="68.3,47.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="118.333328507013,63.266665937437"
+              Start="0,0"
+              End="118.333328507013,55.766665937437">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.6333329687185" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.6333329687185"
+                    Point2="0,31.6333329687185"
+                    Point3="4,31.6333329687185" />
+                  <mssgle:LineSegment
+                    End="114.333328507013,31.6333329687185" />
+                  <mssgle:CubicBezierSegment
+                    Point1="114.333328507013,31.6333329687185"
+                    Point2="118.333328507013,31.6333329687185"
+                    Point3="118.333328507013,35.6333329687185" />
+                  <mssgle:LineSegment
+                    End="118.333328507013,55.766665937437" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\clean_fact_to_dwh_fact.Paths[Lookup Match Output]"
+          TopLeft="186.633328507013,151.966665937437">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="51.8333319218623,56.8666661905579"
+              Start="0,0"
+              End="51.8333319218623,49.3666661905579">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.4333330952789" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.4333330952789"
+                    Point2="0,28.4333330952789"
+                    Point3="4,28.4333330952789" />
+                  <mssgle:LineSegment
+                    End="47.8333319218623,28.4333330952789" />
+                  <mssgle:CubicBezierSegment
+                    Point1="47.8333319218623,28.4333330952789"
+                    Point2="51.8333319218623,28.4333330952789"
+                    Point3="51.8333319218623,32.4333330952789" />
+                  <mssgle:LineSegment
+                    End="51.8333319218623,49.3666661905579" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-22.2747207578188,33.4333330952789,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="180,41.6"
+          Id="Package\clean_fact_to_dwh_fact\Lookup_dwh_supplier"
+          TopLeft="468.833308017917,120.766665865117" />
+        <EdgeLayout
+          Id="Package\clean_fact_to_dwh_fact.Paths[Lookup Match Output1]"
+          TopLeft="266.733327095542,208.833332127995">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="263.433314255709,-46.4666662628782"
+              Start="0,0"
+              End="263.433314255709,-38.9666662628782">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-19.2367452819944" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,-19.2367452819944"
+                    Point2="0,-23.2367452819944"
+                    Point3="4,-23.2367452819944" />
+                  <mssgle:LineSegment
+                    End="259.433314255709,-23.2367452819944" />
+                  <mssgle:CubicBezierSegment
+                    Point1="259.433314255709,-23.2367452819944"
+                    Point2="263.433314255709,-23.2367452819944"
+                    Point3="263.433314255709,-27.2367452819944" />
+                  <mssgle:LineSegment
+                    End="263.433314255709,-38.9666662628782" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="83.5252704091043,-18.2367452819944,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="163.2,41.6"
+          Id="Package\clean_fact_to_dwh_fact\Lookup_dwh_date"
+          TopLeft="493.833308291105,240.899998571674" />
+        <NodeLayout
+          Size="166.4,41.6"
+          Id="Package\clean_fact_to_dwh_fact\Lookup_dwh_store"
+          TopLeft="802.499956153335,124.799999132156" />
+        <NodeLayout
+          Size="183.2,41.6"
+          Id="Package\clean_fact_to_dwh_fact\Lookup_dwh_payment"
+          TopLeft="792.999960251154,256.166665340794" />
+        <EdgeLayout
+          Id="Package\clean_fact_to_dwh_fact.Paths[Lookup Match Output2]"
+          TopLeft="587.499974684584,162.366665865117">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-12.0666663934785,78.5333327065573"
+              Start="0,0"
+              End="-12.0666663934785,71.0333327065573">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.8284872643316" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.8284872643316"
+                    Point2="0,31.8284872643316"
+                    Point3="-4,31.8284872643316" />
+                  <mssgle:LineSegment
+                    End="-8.0666663934785,31.8284872643316" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-8.0666663934785,31.8284872643316"
+                    Point2="-12.0666663934785,31.8284872643316"
+                    Point3="-12.0666663934785,35.8284872643316" />
+                  <mssgle:LineSegment
+                    End="-12.0666663934785,71.0333327065573" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-54.2247199154893,36.8284872643316,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\clean_fact_to_dwh_fact.Paths[Lookup Match Output3]"
+          TopLeft="601.299974957772,240.899998571674">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="284.399981195563,-74.4999994395176"
+              Start="0,0"
+              End="284.399981195563,-66.9999994395176">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-26.2339803550664" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,-26.2339803550664"
+                    Point2="0,-30.2339803550664"
+                    Point3="4,-30.2339803550664" />
+                  <mssgle:LineSegment
+                    End="280.399981195563,-30.2339803550664" />
+                  <mssgle:CubicBezierSegment
+                    Point1="280.399981195563,-30.2339803550664"
+                    Point2="284.399981195563,-30.2339803550664"
+                    Point3="284.399981195563,-34.2339803550664" />
+                  <mssgle:LineSegment
+                    End="284.399981195563,-66.9999994395176" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="94.0086038790315,-25.2339803550664,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\clean_fact_to_dwh_fact.Paths[Lookup Match Output4]"
+          TopLeft="912.099956153335,166.399999132156">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-27.4999959021808,89.766666208638"
+              Start="0,0"
+              End="-27.4999959021808,82.266666208638">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.4196188617903" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,32.4196188617903"
+                    Point2="0,36.4196188617903"
+                    Point3="-4,36.4196188617903" />
+                  <mssgle:LineSegment
+                    End="-23.4999959021808,36.4196188617903" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-23.4999959021808,36.4196188617903"
+                    Point2="-27.4999959021808,36.4196188617903"
+                    Point3="-27.4999959021808,40.4196188617903" />
+                  <mssgle:LineSegment
+                    End="-27.4999959021808,82.266666208638" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-61.9413846698404,41.4196188617903,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\clean_fact_to_dwh_fact.Paths[Lookup Match Output5]"
+          TopLeft="884.599960251154,297.766665340794">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="207.766652779613,75.7333323087955"
+              Start="0,0"
+              End="207.766652779613,68.2333323087955">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.8666661543977" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,33.8666661543977"
+                    Point2="0,37.8666661543977"
+                    Point3="4,37.8666661543977" />
+                  <mssgle:LineSegment
+                    End="203.766652779613,37.8666661543977" />
+                  <mssgle:CubicBezierSegment
+                    Point1="203.766652779613,37.8666661543977"
+                    Point2="207.766652779613,37.8666661543977"
+                    Point3="207.766652779613,41.8666661543977" />
+                  <mssgle:LineSegment
+                    End="207.766652779613,68.2333323087955" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="55.6919396710564,42.8666661543977,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\clean_fact_to_dwh_fact\Lookup_dwh_product">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[dwh_product]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\clean_fact_to_dwh_fact\Lookup_dwh_customer">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[dwh_customers]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\clean_fact_to_dwh_fact\dwh_fact_sales">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\clean_fact_to_dwh_fact\clean_fact">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\clean_fact_to_dwh_fact\Lookup_dwh_supplier">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[dwh_supplier]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\clean_fact_to_dwh_fact\Lookup_dwh_date">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[dwh_date]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\clean_fact_to_dwh_fact\Lookup_dwh_store">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[dwh_store]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\clean_fact_to_dwh_fact\Lookup_dwh_payment">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[dwh_payment]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

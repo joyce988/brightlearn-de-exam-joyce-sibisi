@@ -1,0 +1,1557 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/15/2026 1:57:38 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="JOYCESIBISI"
+  DTS:CreatorName="JOYCESIBISI\sibis"
+  DTS:DTSID="{679B7A04-CBBD-487A-A5C5-D6C2AEE2767F}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="7177"
+  DTS:ObjectName="1 7fact_sales"
+  DTS:PackageType="5"
+  DTS:VersionBuild="12"
+  DTS:VersionGUID="{18B21B98-E889-4F04-AED8-A43A7C93282F}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\create_clean_fact"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{660F588A-E8B2-462D-8BC5-AFB1C4590997}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="create_clean_fact"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EE0DECC5-AD73-4505-87B4-309AF15DA89D}"
+          SQLTask:SqlStatementSource="create or alter  procedure [dbo].[sp_create_clean_fact_sales] as&#xA;&#xA;begin&#xA;&#xA;if object_id ('[stg_brightlearn_store].[dbo].[clean_fact_sales]') is not null&#xA;    drop table [stg_brightlearn_store].[dbo].[clean_fact_sales];&#xA;&#xA;   &#xA;&#xA;&#xA;    CREATE TABLE [stg_brightlearn_store].[dbo].[clean_fact_sales](&#xA;    [salesID] INT IDENTITY(1,1) PRIMARY KEY,&#xA;&#x9;[storeID] INT ,&#xA;&#x9;[productID] INT,&#xA;&#x9;[customerID] INT,&#xA;&#x9;[supplierID] INT,&#xA;&#x9;[paymentID] INT,&#xA;&#x9;[dateID] INT,&#xA;    [transaction_amount] [varchar](50) NULL,&#xA;&#x9;[transaction_discount] [varchar](50) NULL,&#xA;&#x9;[unit_price] [varchar](50) NULL,&#xA;&#x9;[cost_price] [varchar](50) NULL,&#xA;&#x9;[qty] [varchar](50) NULL,&#xA;&#x9;[line_amount] [varchar](50) NULL,&#xA;&#x9;[stock_on_hand] [varchar](50) NULL,&#xA;&#x9;[reorder_threshold] [varchar](50) NULL,&#xA;&#x9; [load_date] DATETIME DEFAULT GETDATE()&#xA;    );&#xA;&#xA;   &#xA;&#xA;    INSERT INTO [stg_brightlearn_store].[dbo].[clean_fact_sales](&#xA;    storeID,&#xA;&#x9;productID,&#xA;&#x9;customerID,&#xA;&#x9;supplierID,&#xA;&#x9;paymentID,&#xA;&#x9;dateID,&#xA;&#x9;transaction_amount,&#xA;&#x9;transaction_discount,&#xA;&#x9;unit_price,&#xA;&#x9;cost_price,&#xA;&#x9;qty,&#xA;&#x9;line_amount,&#xA;&#x9;stock_on_hand,&#xA;&#x9;reorder_threshold  )&#xA;SELECT  &#xA;    storeID,&#xA;&#x9;productID,&#xA;&#x9;customerID,&#xA;&#x9;supplierID,&#xA;&#x9;paymentID,&#xA;&#x9;dateID,&#xA;&#x9;cast (transaction_amount as decimal (18,0)) as transaction_amount ,&#xA;&#x9;cast (transaction_discount as decimal (18,0)) as transaction_discount ,&#xA;&#x9;cast ( unit_price as decimal (18,0)) as unit_price ,&#xA;&#x9;cast (cost_price as decimal (18,0)) as cost_price ,&#xA;&#x9;cast (qty as INT) as qty,&#xA;&#x9;cast (line_amount as decimal (18,0)) as line_amount ,&#xA;&#x9;cast (stock_on_hand as INT) as stock_on_hand,&#xA;&#x9;cast (reorder_threshold as INT) as reorder_threshold&#xA;&#xA;    &#xA;FROM [stg_brightlearn_store].[dbo].[stg_fact_sales]&#xA;&#xA;--view data in table&#xA;select * &#xA;from [stg_brightlearn_store].[dbo].[clean_fact_sales]&#xA;    end;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\create_fact_sales"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{49FFD9D6-E0C2-41C1-94CF-007740AD3761}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="create_fact_sales"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EE0DECC5-AD73-4505-87B4-309AF15DA89D}"
+          SQLTask:SqlStatementSource="create or alter  procedure [dbo].[sp_create_stg_fact_sales] as&#xA;&#xA;begin&#xA;&#xA;if object_id ('[stg_brightlearn_store].[dbo].[stg_fact_sales]') is not null&#xA;   &#xA;&#xA;    &#xA;&#xA;&#xA;    CREATE TABLE [stg_brightlearn_store].[dbo].[stg_fact_sales](&#xA;    [salesID] INT IDENTITY(1,1) PRIMARY KEY,&#xA;&#x9;[storeID] INT ,&#xA;&#x9;[productID] INT,&#xA;&#x9;[customerID] INT,&#xA;&#x9;[supplierID] INT,&#xA;&#x9;[paymentID] INT,&#xA;&#x9;[dateID] INT,&#xA;    [transaction_amount] [varchar](50) NULL,&#xA;&#x9;[transaction_discount] [varchar](50) NULL,&#xA;&#x9;[unit_price] [varchar](50) NULL,&#xA;&#x9;[cost_price] [varchar](50) NULL,&#xA;&#x9;[qty] [varchar](50) NULL,&#xA;&#x9;[line_amount] [varchar](50) NULL,&#xA;&#x9;[stock_on_hand] [varchar](50) NULL,&#xA;&#x9;[reorder_threshold] [varchar](50) NULL,&#xA;&#x9;[load_date] DATETIME DEFAULT GETDATE()&#xA;    );&#xA;&#xA;&#xA;   &#xA;&#xA;    INSERT INTO [stg_brightlearn_store].[dbo].[stg_fact_sales](&#xA;    &#xA;&#x9;transaction_amount,&#xA;&#x9;transaction_discount,&#xA;&#x9;unit_price,&#xA;&#x9;cost_price,&#xA;&#x9;qty,&#xA;&#x9;line_amount,&#xA;&#x9;stock_on_hand,&#xA;&#x9;reorder_threshold  )&#xA;SELECT DISTINCT&#xA;&#x9;transaction_amount,&#xA;&#x9;transaction_discount,&#xA;&#x9;unit_price,&#xA;&#x9;cost_price,&#xA;&#x9;qty,&#xA;&#x9;line_amount,&#xA;&#x9;stock_on_hand,&#xA;&#x9;reorder_threshold&#xA;    &#xA;FROM [stg_brightlearn_store].[dbo].[raw_data]&#xA;&#xA;--view data in table&#xA;select * &#xA;from [stg_brightlearn_store].[dbo].[stg_fact_sales]&#xA;&#xA;&#xA;&#xA;    end;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\load_clean_fact_sales"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{65E37E38-105E-47AB-9034-B9D2C81D4325}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="load_clean_fact_sales"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\load_clean_fact_sales\clean_fact_sales"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="clean_fact_sales"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[clean_fact_sales]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\load_clean_fact_sales\clean_fact_sales.Connections[OleDbConnection]"
+                  connectionManagerID="{EE0DECC5-AD73-4505-87B4-309AF15DA89D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JOYCESIBISI.stg_brightlearn_store]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].Columns[transaction_amount]"
+                      cachedDataType="numeric"
+                      cachedName="transaction_amount"
+                      cachedPrecision="18"
+                      externalMetadataColumnId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[transaction_amount]"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[transaction_amount]" />
+                    <inputColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].Columns[transaction_discount]"
+                      cachedDataType="numeric"
+                      cachedName="transaction_discount"
+                      cachedPrecision="18"
+                      externalMetadataColumnId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[transaction_discount]"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[transaction_discount]" />
+                    <inputColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].Columns[unit_price]"
+                      cachedDataType="numeric"
+                      cachedName="unit_price"
+                      cachedPrecision="18"
+                      externalMetadataColumnId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[unit_price]"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[unit_price]" />
+                    <inputColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].Columns[cost_price]"
+                      cachedDataType="numeric"
+                      cachedName="cost_price"
+                      cachedPrecision="18"
+                      externalMetadataColumnId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[cost_price]"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[cost_price]" />
+                    <inputColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].Columns[qty]"
+                      cachedDataType="i4"
+                      cachedName="qty"
+                      externalMetadataColumnId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[qty]"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[qty]" />
+                    <inputColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].Columns[line_amount]"
+                      cachedDataType="numeric"
+                      cachedName="line_amount"
+                      cachedPrecision="18"
+                      externalMetadataColumnId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[line_amount]"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[line_amount]" />
+                    <inputColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].Columns[stock_on_hand]"
+                      cachedDataType="i4"
+                      cachedName="stock_on_hand"
+                      externalMetadataColumnId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[stock_on_hand]"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[stock_on_hand]" />
+                    <inputColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].Columns[reorder_threshold]"
+                      cachedDataType="i4"
+                      cachedName="reorder_threshold"
+                      externalMetadataColumnId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[reorder_threshold]"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[reorder_threshold]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[salesID]"
+                      dataType="i4"
+                      name="salesID" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[transaction_amount]"
+                      dataType="numeric"
+                      name="transaction_amount"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[transaction_discount]"
+                      dataType="numeric"
+                      name="transaction_discount"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[unit_price]"
+                      dataType="numeric"
+                      name="unit_price"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[cost_price]"
+                      dataType="numeric"
+                      name="cost_price"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[qty]"
+                      dataType="i4"
+                      name="qty" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[line_amount]"
+                      dataType="numeric"
+                      name="line_amount"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[stock_on_hand]"
+                      dataType="i4"
+                      name="stock_on_hand" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[reorder_threshold]"
+                      dataType="i4"
+                      name="reorder_threshold" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[load_date]"
+                      dataType="dbTimeStamp"
+                      name="load_date" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[storeID]"
+                      dataType="i4"
+                      name="storeID" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[productID]"
+                      dataType="i4"
+                      name="productID" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[customerID]"
+                      dataType="i4"
+                      name="customerID" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[supplierID]"
+                      dataType="i4"
+                      name="supplierID" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[paymentID]"
+                      dataType="i4"
+                      name="paymentID" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[dateID]"
+                      dataType="i4"
+                      name="dateID" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\load_clean_fact_sales\clean_fact_sales.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\load_clean_fact_sales\clean_fact_sales.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\load_clean_fact_sales\clean_fact_sales.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\load_clean_fact_sales\clean_fact_sales.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\load_clean_fact_sales\stg_fact_sales"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="stg_fact_sales"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
+	cast (transaction_amount as decimal (18,0)) as transaction_amount ,
+	cast (transaction_discount as decimal (18,0)) as transaction_discount ,
+	cast ( unit_price as decimal (18,0)) as unit_price ,
+	cast (cost_price as decimal (18,0)) as cost_price ,
+	cast (qty as INT) as qty,
+	cast (line_amount as decimal (18,0)) as line_amount ,
+	cast (stock_on_hand as INT) as stock_on_hand,
+	cast (reorder_threshold as INT) as reorder_threshold
+
+    
+FROM [stg_brightlearn_store].[dbo].[stg_fact_sales]</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\load_clean_fact_sales\stg_fact_sales.Connections[OleDbConnection]"
+                  connectionManagerID="{EE0DECC5-AD73-4505-87B4-309AF15DA89D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JOYCESIBISI.stg_brightlearn_store]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[transaction_amount]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].ExternalColumns[transaction_amount]"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[transaction_amount]"
+                      name="transaction_amount"
+                      precision="18"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[transaction_discount]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].ExternalColumns[transaction_discount]"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[transaction_discount]"
+                      name="transaction_discount"
+                      precision="18"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[unit_price]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].ExternalColumns[unit_price]"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[unit_price]"
+                      name="unit_price"
+                      precision="18"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[cost_price]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].ExternalColumns[cost_price]"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[cost_price]"
+                      name="cost_price"
+                      precision="18"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[qty]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].ExternalColumns[qty]"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[qty]"
+                      name="qty"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[line_amount]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].ExternalColumns[line_amount]"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[line_amount]"
+                      name="line_amount"
+                      precision="18"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[stock_on_hand]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].ExternalColumns[stock_on_hand]"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[stock_on_hand]"
+                      name="stock_on_hand"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[reorder_threshold]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].ExternalColumns[reorder_threshold]"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].Columns[reorder_threshold]"
+                      name="reorder_threshold"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].ExternalColumns[transaction_amount]"
+                      dataType="numeric"
+                      name="transaction_amount"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].ExternalColumns[transaction_discount]"
+                      dataType="numeric"
+                      name="transaction_discount"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].ExternalColumns[unit_price]"
+                      dataType="numeric"
+                      name="unit_price"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].ExternalColumns[cost_price]"
+                      dataType="numeric"
+                      name="cost_price"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].ExternalColumns[qty]"
+                      dataType="i4"
+                      name="qty" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].ExternalColumns[line_amount]"
+                      dataType="numeric"
+                      name="line_amount"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].ExternalColumns[stock_on_hand]"
+                      dataType="i4"
+                      name="stock_on_hand" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output].ExternalColumns[reorder_threshold]"
+                      dataType="i4"
+                      name="reorder_threshold" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Error Output].Columns[transaction_amount]"
+                      dataType="numeric"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Error Output].Columns[transaction_amount]"
+                      name="transaction_amount"
+                      precision="18" />
+                    <outputColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Error Output].Columns[transaction_discount]"
+                      dataType="numeric"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Error Output].Columns[transaction_discount]"
+                      name="transaction_discount"
+                      precision="18" />
+                    <outputColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Error Output].Columns[unit_price]"
+                      dataType="numeric"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Error Output].Columns[unit_price]"
+                      name="unit_price"
+                      precision="18" />
+                    <outputColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Error Output].Columns[cost_price]"
+                      dataType="numeric"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Error Output].Columns[cost_price]"
+                      name="cost_price"
+                      precision="18" />
+                    <outputColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Error Output].Columns[qty]"
+                      dataType="i4"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Error Output].Columns[qty]"
+                      name="qty" />
+                    <outputColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Error Output].Columns[line_amount]"
+                      dataType="numeric"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Error Output].Columns[line_amount]"
+                      name="line_amount"
+                      precision="18" />
+                    <outputColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Error Output].Columns[stock_on_hand]"
+                      dataType="i4"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Error Output].Columns[stock_on_hand]"
+                      name="stock_on_hand" />
+                    <outputColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Error Output].Columns[reorder_threshold]"
+                      dataType="i4"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Error Output].Columns[reorder_threshold]"
+                      name="reorder_threshold" />
+                    <outputColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\load_clean_fact_sales.Paths[OLE DB Source Output]"
+              endId="Package\load_clean_fact_sales\clean_fact_sales.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\load_clean_fact_sales\stg_fact_sales.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\raw_data_to_stg_fact_sales"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{0D811583-75B3-4361-8CB1-CFAB8EE869C4}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="raw_data_to_stg_fact_sales"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\raw_data_to_stg_fact_sales\raw_data"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="raw_data"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT DISTINCT
+	transaction_amount,
+	transaction_discount,
+	unit_price,
+	cost_price,
+	qty,
+	line_amount,
+	stock_on_hand,
+	reorder_threshold
+    
+FROM [stg_brightlearn_store].[dbo].[raw_data]</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\raw_data_to_stg_fact_sales\raw_data.Connections[OleDbConnection]"
+                  connectionManagerID="{EE0DECC5-AD73-4505-87B4-309AF15DA89D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JOYCESIBISI.stg_brightlearn_store]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[transaction_amount]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].ExternalColumns[transaction_amount]"
+                      length="50"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[transaction_amount]"
+                      name="transaction_amount"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[transaction_discount]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].ExternalColumns[transaction_discount]"
+                      length="50"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[transaction_discount]"
+                      name="transaction_discount"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[unit_price]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].ExternalColumns[unit_price]"
+                      length="50"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[unit_price]"
+                      name="unit_price"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[cost_price]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].ExternalColumns[cost_price]"
+                      length="50"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[cost_price]"
+                      name="cost_price"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[qty]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].ExternalColumns[qty]"
+                      length="50"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[qty]"
+                      name="qty"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[line_amount]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].ExternalColumns[line_amount]"
+                      length="50"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[line_amount]"
+                      name="line_amount"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[stock_on_hand]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].ExternalColumns[stock_on_hand]"
+                      length="50"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[stock_on_hand]"
+                      name="stock_on_hand"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[reorder_threshold]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].ExternalColumns[reorder_threshold]"
+                      length="50"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[reorder_threshold]"
+                      name="reorder_threshold"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].ExternalColumns[transaction_amount]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="transaction_amount" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].ExternalColumns[transaction_discount]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="transaction_discount" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].ExternalColumns[unit_price]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="unit_price" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].ExternalColumns[cost_price]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="cost_price" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].ExternalColumns[qty]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="qty" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].ExternalColumns[line_amount]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="line_amount" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].ExternalColumns[stock_on_hand]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="stock_on_hand" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].ExternalColumns[reorder_threshold]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="reorder_threshold" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Error Output].Columns[transaction_amount]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Error Output].Columns[transaction_amount]"
+                      name="transaction_amount" />
+                    <outputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Error Output].Columns[transaction_discount]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Error Output].Columns[transaction_discount]"
+                      name="transaction_discount" />
+                    <outputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Error Output].Columns[unit_price]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Error Output].Columns[unit_price]"
+                      name="unit_price" />
+                    <outputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Error Output].Columns[cost_price]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Error Output].Columns[cost_price]"
+                      name="cost_price" />
+                    <outputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Error Output].Columns[qty]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Error Output].Columns[qty]"
+                      name="qty" />
+                    <outputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Error Output].Columns[line_amount]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Error Output].Columns[line_amount]"
+                      name="line_amount" />
+                    <outputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Error Output].Columns[stock_on_hand]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Error Output].Columns[stock_on_hand]"
+                      name="stock_on_hand" />
+                    <outputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Error Output].Columns[reorder_threshold]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Error Output].Columns[reorder_threshold]"
+                      name="reorder_threshold" />
+                    <outputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="stg_fact_sales"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[stg_fact_sales]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Connections[OleDbConnection]"
+                  connectionManagerID="{EE0DECC5-AD73-4505-87B4-309AF15DA89D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JOYCESIBISI.stg_brightlearn_store]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].Columns[transaction_amount]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="transaction_amount"
+                      externalMetadataColumnId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[transaction_amount]"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[transaction_amount]" />
+                    <inputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].Columns[transaction_discount]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="transaction_discount"
+                      externalMetadataColumnId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[transaction_discount]"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[transaction_discount]" />
+                    <inputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].Columns[unit_price]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="unit_price"
+                      externalMetadataColumnId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[unit_price]"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[unit_price]" />
+                    <inputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].Columns[cost_price]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="cost_price"
+                      externalMetadataColumnId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[cost_price]"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[cost_price]" />
+                    <inputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].Columns[qty]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="qty"
+                      externalMetadataColumnId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[qty]"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[qty]" />
+                    <inputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].Columns[line_amount]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="line_amount"
+                      externalMetadataColumnId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[line_amount]"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[line_amount]" />
+                    <inputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].Columns[stock_on_hand]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="stock_on_hand"
+                      externalMetadataColumnId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[stock_on_hand]"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[stock_on_hand]" />
+                    <inputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].Columns[reorder_threshold]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="reorder_threshold"
+                      externalMetadataColumnId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[reorder_threshold]"
+                      lineageId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output].Columns[reorder_threshold]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[salesID]"
+                      dataType="i4"
+                      name="salesID" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[transaction_amount]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="transaction_amount" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[transaction_discount]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="transaction_discount" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[unit_price]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="unit_price" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[cost_price]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="cost_price" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[qty]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="qty" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[line_amount]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="line_amount" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[stock_on_hand]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="stock_on_hand" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[reorder_threshold]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="reorder_threshold" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[load_date]"
+                      dataType="dbTimeStamp"
+                      name="load_date" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[storeID]"
+                      dataType="i4"
+                      name="storeID" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[productID]"
+                      dataType="i4"
+                      name="productID" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[customerID]"
+                      dataType="i4"
+                      name="customerID" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[supplierID]"
+                      dataType="i4"
+                      name="supplierID" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[paymentID]"
+                      dataType="i4"
+                      name="paymentID" />
+                    <externalMetadataColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input].ExternalColumns[dateID]"
+                      dataType="i4"
+                      name="dateID" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\raw_data_to_stg_fact_sales.Paths[OLE DB Source Output]"
+              endId="Package\raw_data_to_stg_fact_sales\stg_fact_sales.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\raw_data_to_stg_fact_sales\raw_data.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\truncate_clean_fact"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{63E2D925-CBA7-4979-9DFF-7B11CE0C2BF2}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="truncate_clean_fact"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EE0DECC5-AD73-4505-87B4-309AF15DA89D}"
+          SQLTask:SqlStatementSource="truncate table [stg_brightlearn_store].[dbo].[clean_fact_sales]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\truncate_fact_sales"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{E86C4287-B003-47BB-9EFF-ABD1E2C753BC}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="truncate_fact_sales"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EE0DECC5-AD73-4505-87B4-309AF15DA89D}"
+          SQLTask:SqlStatementSource="truncate table [stg_brightlearn_store].[dbo].[stg_fact_sales];" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{D03FC5A6-C517-4261-8079-ECA5DFA599A6}"
+      DTS:From="Package\truncate_fact_sales"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\create_fact_sales" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{5B61A776-94C8-492F-85A4-D28980E92B6E}"
+      DTS:From="Package\create_fact_sales"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\raw_data_to_stg_fact_sales" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{7D827D59-4D1B-4A5D-9B25-6D19D3BB09B4}"
+      DTS:From="Package\raw_data_to_stg_fact_sales"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\truncate_clean_fact" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{C44F6E62-FAE3-4AC9-82FC-8C745A41BE15}"
+      DTS:From="Package\truncate_clean_fact"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\create_clean_fact" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{92502BC4-4508-4B4B-B1EA-D946F84578F2}"
+      DTS:From="Package\create_clean_fact"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\load_clean_fact_sales" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="160.8,41.6"
+          Id="Package\create_clean_fact"
+          TopLeft="554.666644857163,221.366666208638" />
+        <NodeLayout
+          Size="160,41.6"
+          Id="Package\create_fact_sales"
+          TopLeft="117.999995492399,142.966665919357" />
+        <NodeLayout
+          Size="181.6,41.6"
+          Id="Package\load_clean_fact_sales"
+          TopLeft="562.166641169125,300.033331911034" />
+        <NodeLayout
+          Size="208,41.6"
+          Id="Package\raw_data_to_stg_fact_sales"
+          TopLeft="214.666655238304,238.633331712153" />
+        <NodeLayout
+          Size="168.8,41.6"
+          Id="Package\truncate_clean_fact"
+          TopLeft="492.999979920687,109.033333447841" />
+        <NodeLayout
+          Size="168.8,41.6"
+          Id="Package\truncate_fact_sales"
+          TopLeft="0.500003551443655,28.2333335924808" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="84.9000035514437,69.8333335924808">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="113.099991940955,73.1333323268761"
+              Start="0,0"
+              End="113.099991940955,65.6333323268761">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.566666163438" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,32.566666163438"
+                    Point2="0,36.566666163438"
+                    Point3="4,36.566666163438" />
+                  <mssgle:LineSegment
+                    End="109.099991940955,36.566666163438" />
+                  <mssgle:CubicBezierSegment
+                    Point1="109.099991940955,36.566666163438"
+                    Point2="113.099991940955,36.566666163438"
+                    Point3="113.099991940955,40.566666163438" />
+                  <mssgle:LineSegment
+                    End="113.099991940955,65.6333323268761" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="197.999995492399,184.566665919357">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="87.3333264125718,54.0666657927961"
+              Start="0,0"
+              End="87.3333264125718,46.5666657927961">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.1923658918939" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,28.1923658918939"
+                    Point2="0,32.1923658918939"
+                    Point3="4,32.1923658918939" />
+                  <mssgle:LineSegment
+                    End="83.3333264125718,32.1923658918939" />
+                  <mssgle:CubicBezierSegment
+                    Point1="83.3333264125718,32.1923658918939"
+                    Point2="87.3333264125718,32.1923658918939"
+                    Point3="87.3333264125718,36.1923658918939" />
+                  <mssgle:LineSegment
+                    End="87.3333264125718,46.5666657927961" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="351.999988571637,238.633331712153">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="225.39999134905,-87.9999982643122"
+              Start="0,0"
+              End="225.39999134905,-80.4999982643122">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-31.6030527328897" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,-31.6030527328897"
+                    Point2="0,-35.6030527328897"
+                    Point3="4,-35.6030527328897" />
+                  <mssgle:LineSegment
+                    End="221.39999134905,-35.6030527328897" />
+                  <mssgle:CubicBezierSegment
+                    Point1="221.39999134905,-35.6030527328897"
+                    Point2="225.39999134905,-35.6030527328897"
+                    Point3="225.39999134905,-39.6030527328897" />
+                  <mssgle:LineSegment
+                    End="225.39999134905,-80.4999982643122" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="604.199979920687,150.633333447841">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="30.8666649364757,70.7333327607971"
+              Start="0,0"
+              End="30.8666649364757,63.2333327607971">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.6918307536754" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.6918307536754"
+                    Point2="0,28.6918307536754"
+                    Point3="4,28.6918307536754" />
+                  <mssgle:LineSegment
+                    End="26.8666649364757,28.6918307536754" />
+                  <mssgle:CubicBezierSegment
+                    Point1="26.8666649364757,28.6918307536754"
+                    Point2="30.8666649364757,28.6918307536754"
+                    Point3="30.8666649364757,32.6918307536754" />
+                  <mssgle:LineSegment
+                    End="30.8666649364757,63.2333327607971" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="635.066644857163,262.966666208638">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="17.8999963119625,37.0666657023961"
+              Start="0,0"
+              End="17.8999963119625,29.5666657023961">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.5333328511981" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.5333328511981"
+                    Point2="0,18.5333328511981"
+                    Point3="4,18.5333328511981" />
+                  <mssgle:LineSegment
+                    End="13.8999963119625,18.5333328511981" />
+                  <mssgle:CubicBezierSegment
+                    Point1="13.8999963119625,18.5333328511981"
+                    Point2="17.8999963119625,18.5333328511981"
+                    Point3="17.8999963119625,22.5333328511981" />
+                  <mssgle:LineSegment
+                    End="17.8999963119625,29.5666657023961" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\load_clean_fact_sales">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="156,41.6"
+          Id="Package\load_clean_fact_sales\clean_fact_sales"
+          TopLeft="281.499996334314,127.499998629093" />
+        <NodeLayout
+          Size="144.8,41.6"
+          Id="Package\load_clean_fact_sales\stg_fact_sales"
+          TopLeft="5.5,5.5" />
+        <EdgeLayout
+          Id="Package\load_clean_fact_sales.Paths[OLE DB Source Output]"
+          TopLeft="77.9,47.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="281.599996334314,80.3999986290931"
+              Start="0,0"
+              End="281.599996334314,72.8999986290931">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.1999993145466" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,36.1999993145466"
+                    Point2="0,40.1999993145466"
+                    Point3="4,40.1999993145466" />
+                  <mssgle:LineSegment
+                    End="277.599996334314,40.1999993145466" />
+                  <mssgle:CubicBezierSegment
+                    Point1="277.599996334314,40.1999993145466"
+                    Point2="281.599996334314,40.1999993145466"
+                    Point3="281.599996334314,44.1999993145466" />
+                  <mssgle:LineSegment
+                    End="281.599996334314,72.8999986290931" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\load_clean_fact_sales\clean_fact_sales">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\load_clean_fact_sales\stg_fact_sales">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\raw_data_to_stg_fact_sales">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="144.8,41.6"
+          Id="Package\raw_data_to_stg_fact_sales\stg_fact_sales"
+          TopLeft="127.999994946023,141.233332598077" />
+        <NodeLayout
+          Size="120.8,41.6"
+          Id="Package\raw_data_to_stg_fact_sales\raw_data"
+          TopLeft="5.50000000000001,5.5" />
+        <EdgeLayout
+          Id="Package\raw_data_to_stg_fact_sales.Paths[OLE DB Source Output]"
+          TopLeft="65.9,47.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="134.499994946023,94.133332598077"
+              Start="0,0"
+              End="134.499994946023,86.633332598077">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43.0666662990385" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,43.0666662990385"
+                    Point2="0,47.0666662990385"
+                    Point3="4,47.0666662990385" />
+                  <mssgle:LineSegment
+                    End="130.499994946023,47.0666662990385" />
+                  <mssgle:CubicBezierSegment
+                    Point1="130.499994946023,47.0666662990385"
+                    Point2="134.499994946023,47.0666662990385"
+                    Point3="134.499994946023,51.0666662990385" />
+                  <mssgle:LineSegment
+                    End="134.499994946023,86.633332598077" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\raw_data_to_stg_fact_sales\raw_data">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\raw_data_to_stg_fact_sales\stg_fact_sales">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

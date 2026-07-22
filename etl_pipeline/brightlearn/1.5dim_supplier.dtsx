@@ -1,0 +1,987 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/14/2026 5:17:13 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="JOYCESIBISI"
+  DTS:CreatorName="JOYCESIBISI\sibis"
+  DTS:DTSID="{2C10F8B7-24C3-4D10-816A-34D70C42BEC2}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="7177"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="4"
+  DTS:VersionGUID="{0CAB06C1-3A19-4997-826D-084D99B02B9E}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\create_clean_supplier"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{C65CB349-E08E-4512-A003-DCF276463F59}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="create_clean_supplier"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EE0DECC5-AD73-4505-87B4-309AF15DA89D}"
+          SQLTask:SqlStatementSource="create or alter  procedure [dbo].[sp_clean_supplier] as&#xA;&#xA;begin&#xA;&#xA;if object_id ('[stg_brightlearn_store].[dbo].[clean_supplier]') is not null&#xA;    drop table [stg_brightlearn_store].[dbo].[clean_supplier];&#xA;&#xA;  &#xA;&#xA;&#xA;    CREATE TABLE [stg_brightlearn_store].[dbo].[clean_supplier]&#xA;    (&#xA;    [supplierID] INT IDENTITY(1,1) PRIMARY KEY,&#xA;    [supplier] [varchar](50) NULL,&#xA;    [load_date] DATETIME DEFAULT GETDATE()&#xA;    );&#xA;    &#xA; &#xA;&#xA;    truncate table  [stg_brightlearn_store].[dbo].[clean_supplier]&#xA;&#xA;   &#xA;&#xA;    INSERT INTO [stg_brightlearn_store].[dbo].[clean_supplier]( supplier &#xA;)&#xA;SELECT DISTINCT supplier &#xA;    &#xA;FROM [stg_brightlearn_store].[dbo].[stg_supplier]&#xA;&#xA;    --view data in table&#xA;    select * from [stg_brightlearn_store].[dbo].[clean_supplier]&#xA;&#xA;    end;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\create_stg_supplier"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{0A11E93A-E129-441F-8DFA-7A80EADB1FBE}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="create_stg_supplier"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EE0DECC5-AD73-4505-87B4-309AF15DA89D}"
+          SQLTask:SqlStatementSource="create or alter  procedure [dbo].[sp_create_stg_supplier] as&#xA;&#xA;begin&#xA;&#xA;if object_id ('[stg_brightlearn_store].[dbo].[stg_supplier]') is not null&#xA;    drop table [stg_brightlearn_store].[dbo].[stg_supplier];&#xA;&#xA;    &#xA;&#xA;&#xA;    CREATE TABLE [stg_brightlearn_store].[dbo].[stg_supplier]&#xA;    (&#xA;    [supplierID] INT IDENTITY(1,1) PRIMARY KEY,&#xA;    [supplier] [varchar](50) NULL,&#xA;    [load_date] DATETIME DEFAULT GETDATE()&#xA;    );&#xA;    &#xA;  &#xA;&#xA;&#xA;    INSERT INTO [stg_brightlearn_store].[dbo].[stg_supplier]( supplier &#xA;)&#xA;SELECT DISTINCT supplier &#xA;    &#xA;FROM [stg_brightlearn_store].[dbo].[raw_data]&#xA;&#xA;    --view data in table&#xA;    select * from [stg_brightlearn_store].[dbo].[stg_supplier]&#xA;&#xA;    end;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\load_clean_supplier"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{A720AC4E-B318-427D-A9A2-1F5514752D51}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="load_clean_supplier"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\load_clean_supplier\clean_supplier"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="clean_supplier"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[clean_supplier]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\load_clean_supplier\clean_supplier.Connections[OleDbConnection]"
+                  connectionManagerID="{EE0DECC5-AD73-4505-87B4-309AF15DA89D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JOYCESIBISI.stg_brightlearn_store]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\load_clean_supplier\clean_supplier.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\load_clean_supplier\clean_supplier.Inputs[OLE DB Destination Input].Columns[supplier]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="supplier"
+                      externalMetadataColumnId="Package\load_clean_supplier\clean_supplier.Inputs[OLE DB Destination Input].ExternalColumns[supplier]"
+                      lineageId="Package\load_clean_supplier\stg_supplier.Outputs[OLE DB Source Output].Columns[supplier]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\load_clean_supplier\clean_supplier.Inputs[OLE DB Destination Input].ExternalColumns[supplierID]"
+                      dataType="i4"
+                      name="supplierID" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_supplier\clean_supplier.Inputs[OLE DB Destination Input].ExternalColumns[supplier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="supplier" />
+                    <externalMetadataColumn
+                      refId="Package\load_clean_supplier\clean_supplier.Inputs[OLE DB Destination Input].ExternalColumns[load_date]"
+                      dataType="dbTimeStamp"
+                      name="load_date" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\load_clean_supplier\clean_supplier.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\load_clean_supplier\clean_supplier.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load_clean_supplier\clean_supplier.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\load_clean_supplier\clean_supplier.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\load_clean_supplier\clean_supplier.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\load_clean_supplier\clean_supplier.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\load_clean_supplier\stg_supplier"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="stg_supplier"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT supplier 
+    
+FROM [stg_brightlearn_store].[dbo].[stg_supplier]</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\load_clean_supplier\stg_supplier.Connections[OleDbConnection]"
+                  connectionManagerID="{EE0DECC5-AD73-4505-87B4-309AF15DA89D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JOYCESIBISI.stg_brightlearn_store]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\load_clean_supplier\stg_supplier.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load_clean_supplier\stg_supplier.Outputs[OLE DB Source Output].Columns[supplier]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load_clean_supplier\stg_supplier.Outputs[OLE DB Source Output].ExternalColumns[supplier]"
+                      length="50"
+                      lineageId="Package\load_clean_supplier\stg_supplier.Outputs[OLE DB Source Output].Columns[supplier]"
+                      name="supplier"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\load_clean_supplier\stg_supplier.Outputs[OLE DB Source Output].ExternalColumns[supplier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="supplier" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\load_clean_supplier\stg_supplier.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load_clean_supplier\stg_supplier.Outputs[OLE DB Source Error Output].Columns[supplier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\load_clean_supplier\stg_supplier.Outputs[OLE DB Source Error Output].Columns[supplier]"
+                      name="supplier" />
+                    <outputColumn
+                      refId="Package\load_clean_supplier\stg_supplier.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\load_clean_supplier\stg_supplier.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\load_clean_supplier\stg_supplier.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\load_clean_supplier\stg_supplier.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\load_clean_supplier.Paths[OLE DB Source Output]"
+              endId="Package\load_clean_supplier\clean_supplier.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\load_clean_supplier\stg_supplier.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\load_stg_supplier"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{70E3B69F-ADEF-47DF-A439-C3CBCF6CCA39}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="load_stg_supplier"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\load_stg_supplier\raw_data"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="raw_data"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT DISTINCT supplier 
+    
+FROM [stg_brightlearn_store].[dbo].[raw_data]</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\load_stg_supplier\raw_data.Connections[OleDbConnection]"
+                  connectionManagerID="{EE0DECC5-AD73-4505-87B4-309AF15DA89D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JOYCESIBISI.stg_brightlearn_store]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\load_stg_supplier\raw_data.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load_stg_supplier\raw_data.Outputs[OLE DB Source Output].Columns[supplier]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\load_stg_supplier\raw_data.Outputs[OLE DB Source Output].ExternalColumns[supplier]"
+                      length="50"
+                      lineageId="Package\load_stg_supplier\raw_data.Outputs[OLE DB Source Output].Columns[supplier]"
+                      name="supplier"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\load_stg_supplier\raw_data.Outputs[OLE DB Source Output].ExternalColumns[supplier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="supplier" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\load_stg_supplier\raw_data.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load_stg_supplier\raw_data.Outputs[OLE DB Source Error Output].Columns[supplier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\load_stg_supplier\raw_data.Outputs[OLE DB Source Error Output].Columns[supplier]"
+                      name="supplier" />
+                    <outputColumn
+                      refId="Package\load_stg_supplier\raw_data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\load_stg_supplier\raw_data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\load_stg_supplier\raw_data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\load_stg_supplier\raw_data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\load_stg_supplier\stg_supplier"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="stg_supplier"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[stg_supplier]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\load_stg_supplier\stg_supplier.Connections[OleDbConnection]"
+                  connectionManagerID="{EE0DECC5-AD73-4505-87B4-309AF15DA89D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JOYCESIBISI.stg_brightlearn_store]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\load_stg_supplier\stg_supplier.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\load_stg_supplier\stg_supplier.Inputs[OLE DB Destination Input].Columns[supplier]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="supplier"
+                      externalMetadataColumnId="Package\load_stg_supplier\stg_supplier.Inputs[OLE DB Destination Input].ExternalColumns[supplier]"
+                      lineageId="Package\load_stg_supplier\raw_data.Outputs[OLE DB Source Output].Columns[supplier]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\load_stg_supplier\stg_supplier.Inputs[OLE DB Destination Input].ExternalColumns[supplierID]"
+                      dataType="i4"
+                      name="supplierID" />
+                    <externalMetadataColumn
+                      refId="Package\load_stg_supplier\stg_supplier.Inputs[OLE DB Destination Input].ExternalColumns[supplier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="supplier" />
+                    <externalMetadataColumn
+                      refId="Package\load_stg_supplier\stg_supplier.Inputs[OLE DB Destination Input].ExternalColumns[load_date]"
+                      dataType="dbTimeStamp"
+                      name="load_date" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\load_stg_supplier\stg_supplier.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\load_stg_supplier\stg_supplier.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\load_stg_supplier\stg_supplier.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\load_stg_supplier\stg_supplier.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\load_stg_supplier\stg_supplier.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\load_stg_supplier\stg_supplier.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\load_stg_supplier.Paths[OLE DB Source Output]"
+              endId="Package\load_stg_supplier\stg_supplier.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\load_stg_supplier\raw_data.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\truncate_clean_supplier"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{E25277AB-EA06-4327-B146-0F4A5FD09FD9}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="truncate_clean_supplier"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EE0DECC5-AD73-4505-87B4-309AF15DA89D}"
+          SQLTask:SqlStatementSource="&#xA;    truncate table  [stg_brightlearn_store].[dbo].[clean_supplier]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\truncate_stg_supplier"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{951D0077-15B8-464B-8735-58DE400C2856}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="truncate_stg_supplier"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{EE0DECC5-AD73-4505-87B4-309AF15DA89D}"
+          SQLTask:SqlStatementSource="truncate table [stg_brightlearn_store].[dbo].[stg_supplier]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{653E5BD7-6842-45D3-9384-E2B5C30CB13E}"
+      DTS:From="Package\create_stg_supplier"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\truncate_stg_supplier" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{B6EA81AE-ED7C-4278-B489-A8DA1D3C8146}"
+      DTS:From="Package\truncate_stg_supplier"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\load_stg_supplier" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{9CFE691A-7DA2-442E-AC7E-3C466A15DFD5}"
+      DTS:From="Package\load_stg_supplier"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\create_clean_supplier" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{C8A94059-FFCE-4B1F-9914-5C5FB5263140}"
+      DTS:From="Package\create_clean_supplier"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\truncate_clean_supplier" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{9158A73E-DA54-489C-9BBD-3EDB4DB161EE}"
+      DTS:From="Package\truncate_clean_supplier"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\load_clean_supplier" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="160,41.6"
+          Id="Package\load_stg_supplier"
+          TopLeft="75.4999961753688,214.366665214234" />
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\load_clean_supplier"
+          TopLeft="427.166645266944,389.09999754111" />
+        <NodeLayout
+          Size="168.8,41.6"
+          Id="Package\create_stg_supplier"
+          TopLeft="44.6666678049498,52.5000000904004" />
+        <NodeLayout
+          Size="177.6,41.6"
+          Id="Package\truncate_stg_supplier"
+          TopLeft="59.6666686245136,126.699999783039" />
+        <NodeLayout
+          Size="180,41.6"
+          Id="Package\create_clean_supplier"
+          TopLeft="412.166651003891,157.566666443679" />
+        <NodeLayout
+          Size="188.8,41.6"
+          Id="Package\truncate_clean_supplier"
+          TopLeft="417.166652369831,267.299999222557" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="129.06666780495,94.1000000904004">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="19.4000008195638,32.5999996926387"
+              Start="0,0"
+              End="19.4000008195638,25.0999996926387">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.2999998463194" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.2999998463194"
+                    Point2="0,16.2999998463194"
+                    Point3="4,16.2999998463194" />
+                  <mssgle:LineSegment
+                    End="15.4000008195638,16.2999998463194" />
+                  <mssgle:CubicBezierSegment
+                    Point1="15.4000008195638,16.2999998463194"
+                    Point2="19.4000008195638,16.2999998463194"
+                    Point3="19.4000008195638,20.2999998463194" />
+                  <mssgle:LineSegment
+                    End="19.4000008195638,25.0999996926387" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="151.983332399941,168.299999783039">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46.0666654311948"
+              Start="0,0"
+              End="0,38.5666654311948">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.5666654311948" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="235.499996175369,235.166665214234">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="176.666654828522,-56.7999987705549"
+              Start="0,0"
+              End="169.166654828522,-56.7999987705549">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="84.3333274142612,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="84.3333274142612,0"
+                    Point2="88.3333274142612,0"
+                    Point3="88.3333274142612,-4" />
+                  <mssgle:LineSegment
+                    End="88.3333274142612,-52.7999987705549" />
+                  <mssgle:CubicBezierSegment
+                    Point1="88.3333274142612,-52.7999987705549"
+                    Point2="88.3333274142612,-56.7999987705549"
+                    Point3="92.3333274142612,-56.7999987705549" />
+                  <mssgle:LineSegment
+                    End="169.166654828522,-56.7999987705549" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="502.166651003891,199.166666443679">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="9.40000136593989,68.1333327788776"
+              Start="0,0"
+              End="9.40000136593989,60.6333327788776">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.0666663894388" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,30.0666663894388"
+                    Point2="0,34.0666663894388"
+                    Point3="4,34.0666663894388" />
+                  <mssgle:LineSegment
+                    End="5.40000136593989,34.0666663894388" />
+                  <mssgle:CubicBezierSegment
+                    Point1="5.40000136593989,34.0666663894388"
+                    Point2="9.40000136593989,34.0666663894388"
+                    Point3="9.40000136593989,38.0666663894388" />
+                  <mssgle:LineSegment
+                    End="9.40000136593989,60.6333327788776" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="512.166648818388,308.899999222557">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,80.1999983185531"
+              Start="0,0"
+              End="0,72.6999983185531">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,72.6999983185531" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\load_stg_supplier">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="120.8,41.6"
+          Id="Package\load_stg_supplier\raw_data"
+          TopLeft="5.50000000000001,5.5" />
+        <NodeLayout
+          Size="134.4,41.6"
+          Id="Package\load_stg_supplier\stg_supplier"
+          TopLeft="226.33332290666,79.6999996926387" />
+        <EdgeLayout
+          Id="Package\load_stg_supplier.Paths[OLE DB Source Output]"
+          TopLeft="65.9,47.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="227.63332290666,32.5999996926387"
+              Start="0,0"
+              End="227.63332290666,25.0999996926387">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.2999998463194" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.2999998463194"
+                    Point2="0,16.2999998463194"
+                    Point3="4,16.2999998463194" />
+                  <mssgle:LineSegment
+                    End="223.63332290666,16.2999998463194" />
+                  <mssgle:CubicBezierSegment
+                    Point1="223.63332290666,16.2999998463194"
+                    Point2="227.63332290666,16.2999998463194"
+                    Point3="227.63332290666,20.2999998463194" />
+                  <mssgle:LineSegment
+                    End="227.63332290666,25.0999996926387" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <TaskHost
+    design-time-name="Package\load_clean_supplier">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="134.4,41.6"
+          Id="Package\load_clean_supplier\stg_supplier"
+          TopLeft="5.5,5.5" />
+        <NodeLayout
+          Size="145.6,41.6"
+          Id="Package\load_clean_supplier\clean_supplier"
+          TopLeft="374.499994948506,102.499999001622" />
+        <EdgeLayout
+          Id="Package\load_clean_supplier.Paths[OLE DB Source Output]"
+          TopLeft="72.7,47.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="374.599994948506,55.3999990016222"
+              Start="0,0"
+              End="374.599994948506,47.8999990016222">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.6999995008111" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.6999995008111"
+                    Point2="0,27.6999995008111"
+                    Point3="4,27.6999995008111" />
+                  <mssgle:LineSegment
+                    End="370.599994948506,27.6999995008111" />
+                  <mssgle:CubicBezierSegment
+                    Point1="370.599994948506,27.6999995008111"
+                    Point2="374.599994948506,27.6999995008111"
+                    Point3="374.599994948506,31.6999995008111" />
+                  <mssgle:LineSegment
+                    End="374.599994948506,47.8999990016222" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\load_stg_supplier\raw_data">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\load_stg_supplier\stg_supplier">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\load_clean_supplier\stg_supplier">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\load_clean_supplier\clean_supplier">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

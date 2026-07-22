@@ -1,0 +1,54 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/7/2026 4:07:43 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="JOYCESIBISI"
+  DTS:CreatorName="JOYCESIBISI\sibis"
+  DTS:DTSID="{2743463E-322B-4D84-AFBB-338778EB6706}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="7177"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{B6A502E4-CE1C-4265-BE27-18A6B2F9A504}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[JOYCESIBISI.dwh_brightlearn_store]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{125A8DD2-03AA-49B3-BFBF-B5738E150B37}"
+      DTS:ObjectName="JOYCESIBISI.dwh_brightlearn_store">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=JOYCESIBISI;Initial Catalog=dwh_brightlearn_store;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Package-{125A8DD2-03AA-49B3-BFBF-B5738E150B37}JOYCESIBISI.dwh_brightlearn_store;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[JOYCESIBISI.stg_brightlearn_store]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{B72F338C-D6ED-41F9-B66B-EA280A4CA95C}"
+      DTS:ObjectName="JOYCESIBISI.stg_brightlearn_store">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=JOYCESIBISI;Initial Catalog=stg_brightlearn_store;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Package-{B72F338C-D6ED-41F9-B66B-EA280A4CA95C}JOYCESIBISI.stg_brightlearn_store;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables />
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

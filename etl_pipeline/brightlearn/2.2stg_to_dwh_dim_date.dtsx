@@ -1,0 +1,487 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/14/2026 4:21:24 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="JOYCESIBISI"
+  DTS:CreatorName="JOYCESIBISI\sibis"
+  DTS:DTSID="{3B3B5BAF-198D-4FE5-B92C-C48DCCE462ED}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="7177"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{FF35423D-6E76-4575-9A53-BCFB36494942}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\clean_date_to_dwh_date"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{A0ADDF8F-1DAC-40C8-828C-E7CA57E8CE45}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="clean_date_to_dwh_date"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\clean_date_to_dwh_date\clean_date"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="clean_date"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[clean_date]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\clean_date_to_dwh_date\clean_date.Connections[OleDbConnection]"
+                  connectionManagerID="{EE0DECC5-AD73-4505-87B4-309AF15DA89D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JOYCESIBISI.stg_brightlearn_store]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Output].Columns[dateID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Output].ExternalColumns[dateID]"
+                      lineageId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Output].Columns[dateID]"
+                      name="dateID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Output].Columns[transaction_date]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Output].ExternalColumns[transaction_date]"
+                      length="10"
+                      lineageId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Output].Columns[transaction_date]"
+                      name="transaction_date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Output].Columns[load_date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Output].ExternalColumns[load_date]"
+                      lineageId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Output].Columns[load_date]"
+                      name="load_date"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Output].ExternalColumns[dateID]"
+                      dataType="i4"
+                      name="dateID" />
+                    <externalMetadataColumn
+                      refId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Output].ExternalColumns[transaction_date]"
+                      dataType="wstr"
+                      length="10"
+                      name="transaction_date" />
+                    <externalMetadataColumn
+                      refId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Output].ExternalColumns[load_date]"
+                      dataType="dbTimeStamp"
+                      name="load_date" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Error Output].Columns[dateID]"
+                      dataType="i4"
+                      lineageId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Error Output].Columns[dateID]"
+                      name="dateID" />
+                    <outputColumn
+                      refId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Error Output].Columns[transaction_date]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Error Output].Columns[transaction_date]"
+                      name="transaction_date" />
+                    <outputColumn
+                      refId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Error Output].Columns[load_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Error Output].Columns[load_date]"
+                      name="load_date" />
+                    <outputColumn
+                      refId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\clean_date_to_dwh_date\dwh_date"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="dwh_date"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dwh_date]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\clean_date_to_dwh_date\dwh_date.Connections[OleDbConnection]"
+                  connectionManagerID="{E5EE915D-1739-4445-8D97-1C9CD147DB36}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JOYCESIBISI.dwh_brightlearn_store]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\clean_date_to_dwh_date\dwh_date.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\clean_date_to_dwh_date\dwh_date.Inputs[OLE DB Destination Input].Columns[dateID]"
+                      cachedDataType="i4"
+                      cachedName="dateID"
+                      externalMetadataColumnId="Package\clean_date_to_dwh_date\dwh_date.Inputs[OLE DB Destination Input].ExternalColumns[dateID]"
+                      lineageId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Output].Columns[dateID]" />
+                    <inputColumn
+                      refId="Package\clean_date_to_dwh_date\dwh_date.Inputs[OLE DB Destination Input].Columns[transaction_date]"
+                      cachedDataType="wstr"
+                      cachedLength="10"
+                      cachedName="transaction_date"
+                      externalMetadataColumnId="Package\clean_date_to_dwh_date\dwh_date.Inputs[OLE DB Destination Input].ExternalColumns[transaction_date]"
+                      lineageId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Output].Columns[transaction_date]" />
+                    <inputColumn
+                      refId="Package\clean_date_to_dwh_date\dwh_date.Inputs[OLE DB Destination Input].Columns[load_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="load_date"
+                      externalMetadataColumnId="Package\clean_date_to_dwh_date\dwh_date.Inputs[OLE DB Destination Input].ExternalColumns[load_date]"
+                      lineageId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Output].Columns[load_date]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\clean_date_to_dwh_date\dwh_date.Inputs[OLE DB Destination Input].ExternalColumns[dateID]"
+                      dataType="i4"
+                      name="dateID" />
+                    <externalMetadataColumn
+                      refId="Package\clean_date_to_dwh_date\dwh_date.Inputs[OLE DB Destination Input].ExternalColumns[transaction_date]"
+                      dataType="wstr"
+                      length="10"
+                      name="transaction_date" />
+                    <externalMetadataColumn
+                      refId="Package\clean_date_to_dwh_date\dwh_date.Inputs[OLE DB Destination Input].ExternalColumns[load_date]"
+                      dataType="dbTimeStamp"
+                      name="load_date" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\clean_date_to_dwh_date\dwh_date.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\clean_date_to_dwh_date\dwh_date.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\clean_date_to_dwh_date\dwh_date.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\clean_date_to_dwh_date\dwh_date.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\clean_date_to_dwh_date\dwh_date.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\clean_date_to_dwh_date\dwh_date.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\clean_date_to_dwh_date.Paths[OLE DB Source Output]"
+              endId="Package\clean_date_to_dwh_date\dwh_date.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\clean_date_to_dwh_date\clean_date.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\truncate_dwh_date"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{21A5B397-C016-4847-B559-4A52035ECA3B}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="truncate_dwh_date"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E5EE915D-1739-4445-8D97-1C9CD147DB36}"
+          SQLTask:SqlStatementSource="truncate table [dwh_brightlearn_store].[dbo].[dwh_date]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{D2BF458B-7D6D-4A89-8711-D09809E1CE75}"
+      DTS:From="Package\truncate_dwh_date"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\clean_date_to_dwh_date" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="194.4,41.6"
+          Id="Package\clean_date_to_dwh_date"
+          TopLeft="171.3333242726,230.833331766394" />
+        <NodeLayout
+          Size="166.4,41.6"
+          Id="Package\truncate_dwh_date"
+          TopLeft="35.5,35.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="118.7,77.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="149.8333242726,153.733331766394"
+              Start="0,0"
+              End="149.8333242726,146.233331766394">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,72.8666658831968" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,72.8666658831968"
+                    Point2="0,76.8666658831968"
+                    Point3="4,76.8666658831968" />
+                  <mssgle:LineSegment
+                    End="145.8333242726,76.8666658831968" />
+                  <mssgle:CubicBezierSegment
+                    Point1="145.8333242726,76.8666658831968"
+                    Point2="149.8333242726,76.8666658831968"
+                    Point3="149.8333242726,80.8666658831968" />
+                  <mssgle:LineSegment
+                    End="149.8333242726,146.233331766394" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\clean_date_to_dwh_date">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="129.6,41.6"
+          Id="Package\clean_date_to_dwh_date\clean_date"
+          TopLeft="5.5,5.5" />
+        <NodeLayout
+          Size="123.2,41.6"
+          Id="Package\clean_date_to_dwh_date\dwh_date"
+          TopLeft="313.833318125871,162.033332453436" />
+        <EdgeLayout
+          Id="Package\clean_date_to_dwh_date.Paths[OLE DB Source Output]"
+          TopLeft="70.3,47.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="305.133318125871,114.933332453436"
+              Start="0,0"
+              End="305.133318125871,107.433332453436">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,53.4666662267182" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,53.4666662267182"
+                    Point2="0,57.4666662267182"
+                    Point3="4,57.4666662267182" />
+                  <mssgle:LineSegment
+                    End="301.133318125871,57.4666662267182" />
+                  <mssgle:CubicBezierSegment
+                    Point1="301.133318125871,57.4666662267182"
+                    Point2="305.133318125871,57.4666662267182"
+                    Point3="305.133318125871,61.4666662267182" />
+                  <mssgle:LineSegment
+                    End="305.133318125871,107.433332453436" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\clean_date_to_dwh_date\clean_date">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\clean_date_to_dwh_date\dwh_date">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

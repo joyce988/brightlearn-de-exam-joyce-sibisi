@@ -22,3 +22,18 @@ FROM [stg_brightlearn_store].[dbo].[raw_data]
 
     --view data in table
    select *from  [stg_brightlearn_store].[dbo].[stg_dim_date]
+
+
+
+   ---------------------------------------------------------------------
+
+
+   SELECT 
+  transaction_date,
+    COALESCE(
+        TRY_CONVERT(DATE, transaction_date, 101), -- Try MM/DD/YYYY
+        TRY_CONVERT(DATE, transaction_date, 103), -- Try DD/MM/YYYY
+        TRY_CONVERT(DATE, transaction_date)       -- Try default/implicit
+    ) AS transaction_date
+FROM [stg_brightlearn_store].[dbo].[stg_dim_date];  
+

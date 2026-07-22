@@ -1,4 +1,4 @@
-
+--create table stg_dim_customer
 
     if object_id ('[stg_brightlearn_store].[dbo].[stg_dim_customer]') is not null
     drop table [stg_brightlearn_store].[dbo].[stg_dim_customer];

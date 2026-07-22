@@ -1,0 +1,492 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/14/2026 4:21:44 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="JOYCESIBISI"
+  DTS:CreatorName="JOYCESIBISI\sibis"
+  DTS:DTSID="{A440F2B1-8A31-40F1-A6C3-037B2ED6DB64}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="7177"
+  DTS:ObjectName="Package5"
+  DTS:PackageType="5"
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{208E6A43-029C-4A86-9EBF-B1D34BC357FF}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\clean_payment_to_dwh_payment"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{3A4FC847-7790-41C7-9A68-04675F728C07}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="clean_payment_to_dwh_payment"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\clean_payment_to_dwh_payment\clean_payment"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="clean_payment"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[clean_payment]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\clean_payment_to_dwh_payment\clean_payment.Connections[OleDbConnection]"
+                  connectionManagerID="{EE0DECC5-AD73-4505-87B4-309AF15DA89D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JOYCESIBISI.stg_brightlearn_store]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Output].Columns[paymentID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Output].ExternalColumns[paymentID]"
+                      lineageId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Output].Columns[paymentID]"
+                      name="paymentID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Output].Columns[payment_method]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Output].ExternalColumns[payment_method]"
+                      length="50"
+                      lineageId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Output].Columns[payment_method]"
+                      name="payment_method"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Output].Columns[load_date]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Output].ExternalColumns[load_date]"
+                      lineageId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Output].Columns[load_date]"
+                      name="load_date"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Output].ExternalColumns[paymentID]"
+                      dataType="i4"
+                      name="paymentID" />
+                    <externalMetadataColumn
+                      refId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Output].ExternalColumns[payment_method]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="payment_method" />
+                    <externalMetadataColumn
+                      refId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Output].ExternalColumns[load_date]"
+                      dataType="dbTimeStamp"
+                      name="load_date" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Error Output].Columns[paymentID]"
+                      dataType="i4"
+                      lineageId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Error Output].Columns[paymentID]"
+                      name="paymentID" />
+                    <outputColumn
+                      refId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Error Output].Columns[payment_method]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Error Output].Columns[payment_method]"
+                      name="payment_method" />
+                    <outputColumn
+                      refId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Error Output].Columns[load_date]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Error Output].Columns[load_date]"
+                      name="load_date" />
+                    <outputColumn
+                      refId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\clean_payment_to_dwh_payment\dwh_payment"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="dwh_payment"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dwh_payment]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\clean_payment_to_dwh_payment\dwh_payment.Connections[OleDbConnection]"
+                  connectionManagerID="{E5EE915D-1739-4445-8D97-1C9CD147DB36}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[JOYCESIBISI.dwh_brightlearn_store]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\clean_payment_to_dwh_payment\dwh_payment.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\clean_payment_to_dwh_payment\dwh_payment.Inputs[OLE DB Destination Input].Columns[paymentID]"
+                      cachedDataType="i4"
+                      cachedName="paymentID"
+                      externalMetadataColumnId="Package\clean_payment_to_dwh_payment\dwh_payment.Inputs[OLE DB Destination Input].ExternalColumns[paymentID]"
+                      lineageId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Output].Columns[paymentID]" />
+                    <inputColumn
+                      refId="Package\clean_payment_to_dwh_payment\dwh_payment.Inputs[OLE DB Destination Input].Columns[payment_method]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="payment_method"
+                      externalMetadataColumnId="Package\clean_payment_to_dwh_payment\dwh_payment.Inputs[OLE DB Destination Input].ExternalColumns[payment_method]"
+                      lineageId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Output].Columns[payment_method]" />
+                    <inputColumn
+                      refId="Package\clean_payment_to_dwh_payment\dwh_payment.Inputs[OLE DB Destination Input].Columns[load_date]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="load_date"
+                      externalMetadataColumnId="Package\clean_payment_to_dwh_payment\dwh_payment.Inputs[OLE DB Destination Input].ExternalColumns[load_date]"
+                      lineageId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Output].Columns[load_date]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\clean_payment_to_dwh_payment\dwh_payment.Inputs[OLE DB Destination Input].ExternalColumns[paymentID]"
+                      dataType="i4"
+                      name="paymentID" />
+                    <externalMetadataColumn
+                      refId="Package\clean_payment_to_dwh_payment\dwh_payment.Inputs[OLE DB Destination Input].ExternalColumns[payment_method]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="payment_method" />
+                    <externalMetadataColumn
+                      refId="Package\clean_payment_to_dwh_payment\dwh_payment.Inputs[OLE DB Destination Input].ExternalColumns[load_date]"
+                      dataType="dbTimeStamp"
+                      name="load_date" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\clean_payment_to_dwh_payment\dwh_payment.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\clean_payment_to_dwh_payment\dwh_payment.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\clean_payment_to_dwh_payment\dwh_payment.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\clean_payment_to_dwh_payment\dwh_payment.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\clean_payment_to_dwh_payment\dwh_payment.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\clean_payment_to_dwh_payment\dwh_payment.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\clean_payment_to_dwh_payment.Paths[OLE DB Source Output]"
+              endId="Package\clean_payment_to_dwh_payment\dwh_payment.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\clean_payment_to_dwh_payment\clean_payment.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\truncate_dwh_payment"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{DFEE7B03-7020-4AB8-AB21-1C8CF6E22389}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="truncate_dwh_payment"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E5EE915D-1739-4445-8D97-1C9CD147DB36}"
+          SQLTask:SqlStatementSource="truncate table [dwh_brightlearn_store].[dbo].[dwh_payment]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{5A46F13E-243C-4F95-A76F-FAD7EAEB489C}"
+      DTS:From="Package\truncate_dwh_payment"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\clean_payment_to_dwh_payment" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="233.6,41.6"
+          Id="Package\clean_payment_to_dwh_payment"
+          TopLeft="75.4999961753688,148.499999005596" />
+        <NodeLayout
+          Size="186.4,41.6"
+          Id="Package\truncate_dwh_payment"
+          TopLeft="35.5,35.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="128.7,77.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="63.5999961753688,71.3999990055958"
+              Start="0,0"
+              End="63.5999961753688,63.8999990055958">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.6999995027979" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,31.6999995027979"
+                    Point2="0,35.6999995027979"
+                    Point3="4,35.6999995027979" />
+                  <mssgle:LineSegment
+                    End="59.5999961753688,35.6999995027979" />
+                  <mssgle:CubicBezierSegment
+                    Point1="59.5999961753688,35.6999995027979"
+                    Point2="63.5999961753688,35.6999995027979"
+                    Point3="63.5999961753688,39.6999995027979" />
+                  <mssgle:LineSegment
+                    End="63.5999961753688,63.8999990055958" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\clean_payment_to_dwh_payment">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="148.8,41.6"
+          Id="Package\clean_payment_to_dwh_payment\clean_payment"
+          TopLeft="5.5,5.5" />
+        <NodeLayout
+          Size="143.2,41.6"
+          Id="Package\clean_payment_to_dwh_payment\dwh_payment"
+          TopLeft="260.49998934567,151.299999403358" />
+        <EdgeLayout
+          Id="Package\clean_payment_to_dwh_payment.Paths[OLE DB Source Output]"
+          TopLeft="79.9,47.1">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="252.19998934567,104.199999403358"
+              Start="0,0"
+              End="252.19998934567,96.6999994033575">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,48.0999997016788" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,48.0999997016788"
+                    Point2="0,52.0999997016788"
+                    Point3="4,52.0999997016788" />
+                  <mssgle:LineSegment
+                    End="248.19998934567,52.0999997016788" />
+                  <mssgle:CubicBezierSegment
+                    Point1="248.19998934567,52.0999997016788"
+                    Point2="252.19998934567,52.0999997016788"
+                    Point3="252.19998934567,56.0999997016788" />
+                  <mssgle:LineSegment
+                    End="252.19998934567,96.6999994033575" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\clean_payment_to_dwh_payment\clean_payment">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\clean_payment_to_dwh_payment\dwh_payment">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
